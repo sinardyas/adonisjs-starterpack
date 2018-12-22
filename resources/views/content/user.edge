@@ -2,27 +2,6 @@
 
 @section('content')
   <div class="box">
-    <h2 class="title">New User</h2>
-  
-    <form action="/tasks" method="POST">
-      {{ csrfField() }}
-  
-      <div class="field has-addons">
-        <div class="control is-expanded">
-          <input class="input" type="text" name="title" value="{{ old('title', '') }}" placeholder="Task title">
-        </div>
-        <div class="control">
-          <button type="submit" class="button is-primary">
-              Add User
-          </button>
-        </div>
-      </div>
-  
-      {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
-    </form>
-  </div>
-
-  <div class="box">
     <h1 class="title">User List</h1>
 
       <table class="table is-bordered is-striped is-narrow is-fullwidth">
@@ -36,10 +15,10 @@
           </tr>
         </thead>
         <tbody>
-          @each(user in users)
+          @each(user in users.data)
             <tr>
               <td>
-                {{ ($loop.index + 1) }}
+                {{ (users.perPage * (users.page - 1)) + ($loop.index + 1) }}
               </td>
               <td>
                 {{ user.username }}
@@ -66,5 +45,22 @@
           @endeach
         </tbody>
       </table>
+
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          @each(page in range(users.lastPage))
+            @set('active', '')
+            @set('idx', ($loop.index + 1))
+
+            @if(users.page === ($loop.index + 1))
+              @set('active', 'is-current')
+            @endif
+
+            <li>
+              <a class="pagination-link {{ active }}" aria-label="Page 1" href="/user?page={{ idx }}">{{ idx }}</a>
+            </li>          
+          @endeach
+        </ul>
+      </nav>
   </div>
 @endsection
