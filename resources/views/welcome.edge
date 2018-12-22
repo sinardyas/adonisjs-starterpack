@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello Adonis</title>
+  {{ style('style') }}
+</head>
+<body>
+  <section>
+    <div class="logo"></div>
+    <div class="title"></div>
+    <div class="subtitle"><p>AdonisJs simplicity will make you feel confident about your code</p></div>
+  </section>
+
+  <div class="page-wrapper">
+    <div class="table-wrapper">
+        @if(transactions.length > 0)
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">BP Team</th>
+                        <th scope="col">2018-09-15</th>
+                        <th scope="col">2018-09-16</th>
+                        <th scope="col">2018-09-17</th>
+                        <th scope="col">2018-09-18</th>
+                        <th scope="col">2018-09-19</th>
+                        <th scope="col">Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @each(trx in transactions)
+                    <tr>
+                        <td>{{ trx.bp_team }}</td>
+                        <td>{{ trx.a.toLocaleString() }}</td>
+                        <td>{{ trx.b.toLocaleString() }}</td>
+                        <td>{{ trx.c.toLocaleString() }}</td>
+                        <td>{{ trx.d.toLocaleString() }}</td>
+                        <td>{{ trx.e.toLocaleString() }}</td>
+                        <td>{{ trx.total_idr.toLocaleString() }}</td>
+                    </tr>
+                    @endeach
+                </tbody>
+            </table>
+        @else
+            <p class="text-center">No transactions found.
+        @endif
+    </div>
+</div>
+</body>
+</html>
