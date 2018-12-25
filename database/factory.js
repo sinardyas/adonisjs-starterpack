@@ -22,3 +22,9 @@ Factory.blueprint('App/Models/User', async (faker) => {
     password: await Hash.make(faker.password())
   }
 })
+
+Factory.blueprint('App/Models/PresenceType', async (faker, index, data) => {
+  return {
+    type: data[index]
+  }
+})

@@ -2,32 +2,32 @@
 
 @section('content')
   <div class="box">
-    <h1 class="title">User List</h1>
+    <h1 class="title">Presence List</h1>
 
       <table class="table is-bordered is-striped is-narrow is-fullwidth">
         <thead>
           <tr>
             <th>No. </th>
             <th>Username</th>
-            <th>Email</th>
+            <th>Type</th>
             <th>Created</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          @each(user in users.data)
+          @each(presence in presences)
             <tr>
               <td>
-                {{ (users.perPage * (users.page - 1)) + ($loop.index + 1) }}
+                {{ (page.perPage * (page.page - 1)) + ($loop.index + 1) }}
               </td>
               <td>
-                {{ user.username }}
+                {{ presence.user[0].username }}
               </td>
               <td>
-                {{ user.email }}
+                {{ presence.presenceType[0].type }}
               </td>
               <td>
-                {{ user.created_at }}
+                {{ presence.created_at }}
               </td>
               <td>
                 <button class="button is-danger is-outlined">
@@ -48,16 +48,17 @@
 
       <nav class="pagination" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
-          @each(page in range(users.lastPage))
+          @each(pages in range(page.lastPage))
             @set('active', '')
             @set('idx', ($loop.index + 1))
+            @set('limit', (page.perPage))
 
-            @if(users.page === ($loop.index + 1))
+            @if(page.page === ($loop.index + 1))
               @set('active', 'is-current')
             @endif
 
             <li>
-              <a class="pagination-link {{ active }}" aria-label="Page 1" href="/user?page={{ idx }}">{{ idx }}</a>
+            <a class="pagination-link {{ active }}" aria-label="Page 1" href="/presence?page={{ idx }}&limit={{ limit }}">{{ idx }}</a>
             </li>          
           @endeach
         </ul>

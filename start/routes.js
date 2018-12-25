@@ -19,3 +19,6 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 Route.get('user', 'UserController.getUser')
 Route.post('user', 'UserController.createUser')
+
+Route.get('presence', 'PresenceController.getPresence')
+Route.post('presence', 'PresenceController.createPresence')
